@@ -1,13 +1,13 @@
 const btn = document.querySelector('.talk')
 const content = document.querySelector('.content')
-
+const creator = "Rikesh"
 
 function speak(text){
     const text_speak = new SpeechSynthesisUtterance(text);
 
     text_speak.rate = 1;
     text_speak.volume = 1;
-    text_speak.pitch = 1;
+    text_speak.pitch = 100;
 
     window.speechSynthesis.speak(text_speak);
 }
@@ -31,7 +31,7 @@ function wishMe(){
 }
 
 window.addEventListener('load', ()=>{
-    speak("Initializing JARVIS..");
+    speak("Initializing KIMI..");
     wishMe();
 });
 
@@ -55,6 +55,15 @@ btn.addEventListener('click', ()=>{
 function takeCommand(message){
     if(message.includes('hey') || message.includes('hello')){
         speak("Hello Sir, How May I Help You?");
+    }
+    else if(message.includes('what is your name') || message.includes('your name')){
+        speak("You named me Kimi Boss!");
+    }
+    else if(message.includes('what is my name') || message.includes('my name')){
+        speak("your name is "+creator);
+    }
+    else if(message.includes('Who is your creator') || message.includes('who create you')){
+        speak("i was made by "+creator);
     }
     else if(message.includes("open google")){
         window.open("https://google.com", "_blank");
@@ -81,19 +90,25 @@ function takeCommand(message){
         const finalText = "This is what i found on wikipedia regarding " + message;
         speak(finalText);
     }
+    
 
     else if(message.includes('time')) {
         const time = new Date().toLocaleString(undefined, {hour: "numeric", minute: "numeric"})
-        const finalText = time;
+        const finalText = "the time is "+time;
         speak(finalText);
     }
 
     else if(message.includes('date')) {
         const date = new Date().toLocaleString(undefined, {month: "short", day: "numeric"})
-        const finalText = date;
+        const finalText = "The date is"+date;
         speak(finalText);
     }
 
+    else if(message.includes('vscode')) {
+        window.open('visualStudioCode:///')
+        const finalText = "Opening Visual studio code...";
+        speak(finalText);
+    }
     else if(message.includes('calculator')) {
         window.open('Calculator:///')
         const finalText = "Opening Calculator";
@@ -102,7 +117,7 @@ function takeCommand(message){
 
     else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "I found some information for " + message + " on google";
+        const finalText = "sorry I dont find that but, wait I found some information for " + message + " on google";
         speak(finalText);
     }
 }
